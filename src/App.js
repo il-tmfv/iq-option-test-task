@@ -7,6 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <Select
+          id="select-component"
           native
           dataSet={[
             { value: '1', label: 'Арбуз' },
