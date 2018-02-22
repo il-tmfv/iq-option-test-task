@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+const sortFunc = (a, b) => {
+  if (a.label < b.label) {
+    return -1;
+  }
+
+  if (a.label > b.label) {
+    return 1;
+  }
+
+  return 0;
+};
+
 export default class Mobile extends Component {
   static propTypes = {
     dataSet: PropTypes.array.isRequired,
@@ -10,7 +22,7 @@ export default class Mobile extends Component {
   };
 
   _renderOptions(dataSet) {
-    return dataSet.map(x => (
+    return dataSet.sort(sortFunc).map(x => (
       <option value={x.value} key={x.value}>
         {x.label}
       </option>
