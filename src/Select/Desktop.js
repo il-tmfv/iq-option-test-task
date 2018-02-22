@@ -5,9 +5,10 @@ import classNames from 'classnames';
 export default class Desktop extends Component {
   constructor(props) {
     super(props);
-    this.state = { focused: false };
+    this.state = { focused: false, tempValue: '' };
     this._onInputBlur = this._onInputBlur.bind(this);
     this._onInputFocus = this._onInputFocus.bind(this);
+    this._onInputChange = this._onInputChange.bind(this);
   }
 
   static propTypes = {
@@ -19,16 +20,34 @@ export default class Desktop extends Component {
   };
 
   _onInputBlur(e) {
-    this.setState({ focused: false });
+    const { onChange, dataSet } = this.props;
+    const tempValue = this.state.tempValue.trim();
+    const entry = dataSet.find(x => x.label.toUpperCase() === tempValue.toUpperCase());
+    let newValue = '';
+
+    if (entry) {
+      newValue = entry.label;
+    }
+
+    this.setState({ focused: false, tempValue: newValue });
+    onChange && onChange(newValue);
   }
 
   _onInputFocus(e) {
     this.setState({ focused: true });
   }
 
+  _onInputChange(e) {
+    this.setState({ tempValue: e.target.value });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ tempValue: nextProps.value });
+  }
+
   render() {
-    const { placeholder, id, value, onChange } = this.props;
-    const { focused } = this.state;
+    const { placeholder, id, value } = this.props;
+    const { focused, tempValue } = this.state;
 
     return (
       <div className={classNames('select', { 'select_with-value': focused || value })}>
@@ -36,8 +55,8 @@ export default class Desktop extends Component {
           {placeholder}
         </label>
         <input
-          value={value}
-          onChange={onChange}
+          value={tempValue}
+          onChange={this._onInputChange}
           type="text"
           id={id}
           onBlur={this._onInputBlur}

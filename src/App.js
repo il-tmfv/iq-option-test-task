@@ -12,7 +12,7 @@ class App extends Component {
 
   // TODO replace with redux
   _onChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({ value: typeof e === 'string' ? e : e.target.value });
   }
 
   render() {
