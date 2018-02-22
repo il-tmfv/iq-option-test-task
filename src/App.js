@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Select from './Select';
 import './App.styl';
 
+const detectMobile = () => {
+  return window.innerWidth <= 768;
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +24,7 @@ class App extends Component {
       <div className="App">
         <Select
           id="select-component"
+          native={detectMobile()}
           value={this.state.value}
           onChange={this._onChange}
           placeholder="Выберите фрукт или овощ"
