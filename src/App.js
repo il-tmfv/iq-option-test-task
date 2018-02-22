@@ -22,7 +22,6 @@ class App extends Component {
           id="select-component"
           value={this.state.value}
           onChange={this._onChange}
-          native
           placeholder="Выберите фрукт или овощ"
           dataSet={[
             { value: '1', label: 'Арбуз' },

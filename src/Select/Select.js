@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Mobile from './Mobile';
+import Desktop from './Desktop';
 import './style.styl';
 
 export const sortFunc = (a, b) => {
@@ -33,6 +34,6 @@ export default class Select extends Component {
   render() {
     const { native, ...other } = this.props;
 
-    return native ? <Mobile {...other} /> : <div>desktop</div>;
+    return native ? <Mobile {...other} /> : <Desktop {...other} />;
   }
 }

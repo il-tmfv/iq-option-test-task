@@ -2,24 +2,33 @@ select:-moz-focusring
   color transparent;
   text-shadow: 0 0 0 #000;
 
+input-style()
+  border-radius 5px
+  border 1px solid black
+  outline none
+  height 40px
+  width 100%
+  padding-left 6px
+  font-size 14px
+
+arrow()
+  background-image url("../down.svg")
+  background-size 15px 15px
+  background-color transparent
+  background-repeat no-repeat
+  background-position calc(100% - 6px) center
+
 .select
   width 300px
   position relative
+  input
+    input-style()
+    arrow()
   select
-    border-radius 5px
-    border 1px solid black
+    input-style()
+    arrow()
     -webkit-appearance none
     -moz-appearance none
-    outline none
-    height 40px
-    width 100%
-    padding-left 6px
-    font-size 14px
-    background-image url("../down.svg")
-    background-size 15px 15px
-    background-color transparent
-    background-repeat no-repeat
-    background-position calc(100% - 6px) center
 
 .placeholder
   font-size 14px
