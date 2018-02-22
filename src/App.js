@@ -3,12 +3,28 @@ import Select from './Select';
 import './App.styl';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    // TODO replace with redux
+    this.state = { value: '' };
+    this._onChange = this._onChange.bind(this);
+  }
+
+  // TODO replace with redux
+  _onChange(e) {
+    console.log(e);
+    this.setState({ value: e.target.value });
+  }
+
   render() {
     return (
       <div className="App">
         <Select
           id="select-component"
+          value={this.state.value}
+          onChange={this._onChange}
           native
+          placeholder="Выберите фрукт или овощ"
           dataSet={[
             { value: '1', label: 'Арбуз' },
             { value: '2', label: 'Груша' },

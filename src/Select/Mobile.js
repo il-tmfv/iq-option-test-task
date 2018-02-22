@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-const sortFunc = (a, b) => {
-  if (a.label < b.label) {
-    return -1;
-  }
-
-  if (a.label > b.label) {
-    return 1;
-  }
-
-  return 0;
-};
+import classNames from 'classnames';
+import { sortFunc } from './Select';
 
 export default class Mobile extends Component {
   static propTypes = {
@@ -19,6 +9,7 @@ export default class Mobile extends Component {
     value: PropTypes.any,
     onChange: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
   };
 
   _renderOptions(dataSet) {
@@ -30,11 +21,19 @@ export default class Mobile extends Component {
   }
 
   render() {
-    const { id, dataSet } = this.props;
+    const { id, dataSet, value, onChange, placeholder } = this.props;
 
     return (
-      <div className="select">
-        <select id={id}>{this._renderOptions(dataSet)}</select>
+      <div className={classNames('select', { 'select_with-value': value })}>
+        <label htmlFor={id} className="placeholder">
+          {placeholder}
+        </label>
+        <select value={value} onChange={onChange} id={id}>
+          <option value="" disabled style={{ display: value ? 'none' : 'block' }}>
+            {placeholder}
+          </option>
+          {this._renderOptions(dataSet)}
+        </select>
       </div>
     );
   }
