@@ -12,7 +12,6 @@ class App extends Component {
 
   // TODO replace with redux
   _onChange(e) {
-    console.log(e);
     this.setState({ value: e.target.value });
   }
 
