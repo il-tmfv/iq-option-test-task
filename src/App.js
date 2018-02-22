@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Select from './Select';
 import './App.styl';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Select
+          native
+          dataSet={[
+            { value: '1', label: 'Арбуз' },
+            { value: '2', label: 'Груша' },
+            { value: '3', label: 'Дыня' },
+            { value: '4', label: 'Яблоко' },
+            { value: '5', label: 'Помидор' },
+            { value: '6', label: 'Слива' },
+            { value: '7', label: 'Картофель' },
+            { value: '8', label: 'Апельсин' },
+            { value: '9', label: 'Гранат' },
+            { value: '10', label: 'Вишня' },
+          ]}
+        />
       </div>
     );
   }
