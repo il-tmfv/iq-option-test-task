@@ -77,7 +77,7 @@ export default class Desktop extends Component {
     const { inputFocused, tempTextValue } = this.state;
 
     return (
-      <div className={classNames('select', { 'select_with-value': inputFocused || value })}>
+      <div className={classNames('select', { 'select_without-value': !inputFocused && !value })}>
         <label htmlFor={id} className="placeholder">
           {placeholder}
         </label>

@@ -24,7 +24,7 @@ export default class Mobile extends Component {
     const { id, dataSet, value, onChange, placeholder } = this.props;
 
     return (
-      <div className={classNames('select', { 'select_with-value': value })}>
+      <div className={classNames('select', { 'select_without-value': !value })}>
         <label htmlFor={id} className="placeholder">
           {placeholder}
         </label>
