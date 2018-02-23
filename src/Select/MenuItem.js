@@ -42,9 +42,9 @@ export default class MenuItem extends Component {
   }
 
   _onItemClick(e) {
-    const { onClick } = this.props;
+    const { onClick, value } = this.props;
 
-    onClick && onClick();
+    onClick && onClick(value);
   }
 
   render() {
