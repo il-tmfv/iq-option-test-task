@@ -5,12 +5,14 @@ export default class MenuItem extends Component {
   constructor(props) {
     super(props);
     this._renderText = this._renderText.bind(this);
+    this._onItemClick = this._onItemClick.bind(this);
   }
 
   static propTypes = {
     searchText: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     value: PropTypes.any,
+    onClick: PropTypes.func.isRequired,
   };
 
   _splitLabel(label, searchText) {
@@ -39,9 +41,19 @@ export default class MenuItem extends Component {
     );
   }
 
+  _onItemClick(e) {
+    const { onClick } = this.props;
+
+    onClick && onClick();
+  }
+
   render() {
     const { label, searchText } = this.props;
 
-    return <div className="menu-item">{this._renderText(label, searchText)}</div>;
+    return (
+      <div role="button" className="menu-item" onClick={this._onItemClick}>
+        {this._renderText(label, searchText)}
+      </div>
+    );
   }
 }

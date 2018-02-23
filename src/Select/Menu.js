@@ -11,25 +11,34 @@ export default class Menu extends Component {
     dataSet: PropTypes.array.isRequired,
     searchText: PropTypes.string.isRequired,
     maxRows: PropTypes.number,
+    onClick: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     maxRows: 5,
   };
 
-  _renderMenuItems(dataSet, searchText) {
+  _renderMenuItems(dataSet, searchText, onClick) {
     return dataSet
       .sort(sortFunc)
       .filter(entry => entry.label.toUpperCase().indexOf(searchText.toUpperCase()) !== -1)
-      .map(x => <MenuItem key={x.value} searchText={searchText} label={x.label} value={x.value} />);
+      .map(x => (
+        <MenuItem
+          key={x.value}
+          searchText={searchText}
+          label={x.label}
+          value={x.value}
+          onClick={() => onClick(x.value)}
+        />
+      ));
   }
 
   render() {
-    const { dataSet, open, searchText, maxRows } = this.props;
+    const { dataSet, open, searchText, maxRows, onClick } = this.props;
 
     return (
       <div className="select__menu" style={{ display: open ? 'block' : 'none', maxHeight: ROW_HEIGHT * maxRows }}>
-        {this._renderMenuItems(dataSet, searchText)}
+        {this._renderMenuItems(dataSet, searchText, onClick)}
       </div>
     );
   }

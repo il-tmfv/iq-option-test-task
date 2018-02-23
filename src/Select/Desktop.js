@@ -6,10 +6,11 @@ import Menu from './Menu';
 export default class Desktop extends Component {
   constructor(props) {
     super(props);
-    this.state = { focused: false, tempValue: '' };
+    this.state = { focused: false, tempTextValue: '' };
     this._onInputBlur = this._onInputBlur.bind(this);
     this._onInputFocus = this._onInputFocus.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
+    this._onMenuItemClick = this._onMenuItemClick.bind(this);
   }
 
   static propTypes = {
@@ -22,15 +23,17 @@ export default class Desktop extends Component {
 
   _onInputBlur(e) {
     const { onChange, dataSet } = this.props;
-    const tempValue = this.state.tempValue.trim();
-    const entry = dataSet.find(x => x.label.toUpperCase() === tempValue.toUpperCase());
+    const tempTextValue = this.state.tempTextValue.trim();
+    const entry = dataSet.find(x => x.label.toUpperCase() === tempTextValue.toUpperCase());
+    let newTextValue = '';
     let newValue = '';
 
     if (entry) {
-      newValue = entry.label;
+      newTextValue = entry.label;
+      newValue = entry.value;
     }
 
-    this.setState({ focused: false, tempValue: newValue });
+    this.setState({ focused: false, tempTextValue: newTextValue });
     onChange && onChange(newValue);
   }
 
@@ -39,16 +42,28 @@ export default class Desktop extends Component {
   }
 
   _onInputChange(e) {
-    this.setState({ tempValue: e.target.value });
+    this.setState({ tempTextValue: e.target.value });
+  }
+
+  _onMenuItemClick(value) {
+    const { onChange } = this.props;
+    onChange && onChange(value);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ tempValue: nextProps.value });
+    const { dataSet } = this.props;
+    const entry = dataSet.find(x => x.value === nextProps.value);
+
+    if (entry) {
+      this.setState({ tempTextValue: entry.label });
+    } else {
+      this.setState({ tempTextValue: '' });
+    }
   }
 
   render() {
     const { placeholder, id, value, dataSet } = this.props;
-    const { focused, tempValue } = this.state;
+    const { focused, tempTextValue } = this.state;
 
     return (
       <div className={classNames('select', { 'select_with-value': focused || value })}>
@@ -56,14 +71,14 @@ export default class Desktop extends Component {
           {placeholder}
         </label>
         <input
-          value={tempValue}
+          value={tempTextValue}
           type="text"
           id={id}
           onChange={this._onInputChange}
           onBlur={this._onInputBlur}
           onFocus={this._onInputFocus}
         />
-        <Menu dataSet={dataSet} searchText={tempValue} open={focused} />
+        <Menu dataSet={dataSet} searchText={tempTextValue} open={focused} onClick={this._onMenuItemClick} />
       </div>
     );
   }
