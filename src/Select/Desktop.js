@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Menu from './Menu';
 
 export default class Desktop extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ export default class Desktop extends Component {
   }
 
   render() {
-    const { placeholder, id, value } = this.props;
+    const { placeholder, id, value, dataSet } = this.props;
     const { focused, tempValue } = this.state;
 
     return (
@@ -56,12 +57,13 @@ export default class Desktop extends Component {
         </label>
         <input
           value={tempValue}
-          onChange={this._onInputChange}
           type="text"
           id={id}
+          onChange={this._onInputChange}
           onBlur={this._onInputBlur}
           onFocus={this._onInputFocus}
         />
+        <Menu dataSet={dataSet} searchText={tempValue} open={focused} />
       </div>
     );
   }
