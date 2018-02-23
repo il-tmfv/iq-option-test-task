@@ -20,6 +20,7 @@ export default class Menu extends Component {
   _renderMenuItems(dataSet, searchText) {
     return dataSet
       .sort(sortFunc)
+      .filter(entry => entry.label.toUpperCase().indexOf(searchText.toUpperCase()) !== -1)
       .map(x => <MenuItem key={x.value} searchText={searchText} label={x.label} value={x.value} />);
   }
 
