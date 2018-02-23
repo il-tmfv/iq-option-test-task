@@ -93,10 +93,16 @@ export default class Desktop extends Component {
 
         return false;
       case 13: // enter
-        onChange && onChange(activeItemValue);
-        this.setState({ tempTextValue: preparedDataSet[currentlyActiveIndex].label }, () => {
-          this.inputRef && this.inputRef.blur();
-        });
+        this.setState(
+          prevState => ({
+            tempTextValue:
+              currentlyActiveIndex >= 0 ? preparedDataSet[currentlyActiveIndex].label : prevState.tempTextValue,
+          }),
+          () => {
+            onChange && onChange(activeItemValue);
+            this.inputRef && this.inputRef.blur();
+          },
+        );
         return false;
       default:
         return;
