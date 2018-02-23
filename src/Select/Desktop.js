@@ -60,8 +60,7 @@ export default class Desktop extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dataSet, value } = this.props;
-    const { value: nextValue } = nextProps;
+    const { dataSet } = this.props;
     const entry = dataSet.find(x => x.value === nextProps.value);
 
     if (entry) {
@@ -70,9 +69,7 @@ export default class Desktop extends Component {
       this.setState({ tempTextValue: '' });
     }
 
-    if (value !== nextValue) {
-      this.setState({ inputFocused: false });
-    }
+    this.setState({ inputFocused: false });
   }
 
   render() {
