@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Select from './Select';
+import { onChange as onChangeAction } from './actions';
 import './App.styl';
+import { BOTTOM, TOP } from './consts';
 
 const detectMobile = () => {
   return window.innerWidth <= 768;
@@ -9,14 +12,13 @@ const detectMobile = () => {
 class App extends Component {
   constructor(props) {
     super(props);
-    // TODO replace with redux
-    this.state = { value: '' };
-    this._onChange = this._onChange.bind(this);
+    this._onChangeTop = this._onChangeTop.bind(this);
   }
 
-  // TODO replace with redux
-  _onChange(e) {
-    this.setState({ value: typeof e === 'string' ? e : e.target.value });
+  _onChangeTop(e) {
+    const { dispatch } = this.props;
+
+    dispatch(onChangeAction(TOP, typeof e === 'string' ? e : e.target.value));
   }
 
   render() {
@@ -25,8 +27,8 @@ class App extends Component {
         <Select
           id="select-component"
           native={detectMobile()}
-          value={this.state.value}
-          onChange={this._onChange}
+          value={this.props[TOP]}
+          onChange={this._onChangeTop}
           placeholder="Выберите фрукт или овощ"
           dataSet={[
             { value: '1', label: 'Арбуз' },
@@ -46,4 +48,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(state => ({
+  [TOP]: state[TOP],
+  [BOTTOM]: state[BOTTOM],
+}))(App);

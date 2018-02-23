@@ -71,25 +71,25 @@ export default class Desktop extends Component {
 
     switch (e.keyCode) {
       case 38: // up
-        if (currentlyActiveIndex != null) {
+        if (currentlyActiveIndex !== -1) {
           newActiveItem =
             preparedDataSet[currentlyActiveIndex === 0 ? preparedDataSet.length - 1 : currentlyActiveIndex - 1];
         } else {
           newActiveItem = preparedDataSet[0];
         }
 
-        this.setState({ activeItemValue: newActiveItem.value });
+        this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : ''});
 
         return false;
       case 40: // down
-        if (currentlyActiveIndex != null) {
+        if (currentlyActiveIndex !== -1) {
           newActiveItem =
             preparedDataSet[currentlyActiveIndex === preparedDataSet.length - 1 ? 0 : currentlyActiveIndex + 1];
         } else {
           newActiveItem = preparedDataSet[0];
         }
 
-        this.setState({ activeItemValue: newActiveItem.value });
+        this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : ''});
 
         return false;
       case 13: // enter
