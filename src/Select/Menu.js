@@ -18,7 +18,9 @@ export default class Menu extends Component {
   };
 
   _renderMenuItems(dataSet, searchText) {
-    return dataSet.sort(sortFunc).map(x => <MenuItem searchText={searchText} label={x.label} value={x.value} />);
+    return dataSet
+      .sort(sortFunc)
+      .map(x => <MenuItem key={x.value} searchText={searchText} label={x.label} value={x.value} />);
   }
 
   render() {
