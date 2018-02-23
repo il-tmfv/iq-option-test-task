@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { sortFunc } from './Select';
 import MenuItem from './MenuItem';
 
 const ROW_HEIGHT = 40;
@@ -19,19 +18,19 @@ export default class Menu extends Component {
     maxRows: PropTypes.number,
     onClick: PropTypes.func.isRequired,
     onMenuFocusBlur: PropTypes.func.isRequired,
+    activeItemValue: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
     maxRows: 5,
   };
 
-  _renderMenuItems(dataSet, searchText, onClick) {
+  _renderMenuItems(dataSet, searchText, activeItemValue, onClick) {
     return dataSet
-      .sort(sortFunc)
-      .filter(entry => entry.label.toUpperCase().indexOf(searchText.toUpperCase()) !== -1)
       .map(x => (
         <MenuItem
           key={x.value}
+          isActive={activeItemValue === x.value}
           searchText={searchText}
           label={x.label}
           value={x.value}
@@ -51,7 +50,7 @@ export default class Menu extends Component {
   }
 
   render() {
-    const { dataSet, open, searchText, maxRows, onClick } = this.props;
+    const { dataSet, open, searchText, maxRows, onClick, activeItemValue } = this.props;
 
     return (
       <div
@@ -60,7 +59,7 @@ export default class Menu extends Component {
         className="select__menu"
         style={{ display: open ? 'block' : 'none', maxHeight: ROW_HEIGHT * maxRows }}
       >
-        {this._renderMenuItems(dataSet, searchText, onClick)}
+        {this._renderMenuItems(dataSet, searchText, activeItemValue, onClick)}
       </div>
     );
   }

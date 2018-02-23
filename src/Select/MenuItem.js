@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 export default class MenuItem extends Component {
@@ -13,6 +14,7 @@ export default class MenuItem extends Component {
     label: PropTypes.string.isRequired,
     value: PropTypes.any,
     onClick: PropTypes.func.isRequired,
+    isActive: PropTypes.bool,
   };
 
   _splitLabel(label, searchText) {
@@ -48,10 +50,14 @@ export default class MenuItem extends Component {
   }
 
   render() {
-    const { label, searchText } = this.props;
+    const { label, searchText, isActive } = this.props;
 
     return (
-      <div role="button" className="menu-item" onClick={this._onItemClick}>
+      <div
+        role="button"
+        className={classNames('menu-item', { 'menu-item_active': isActive })}
+        onClick={this._onItemClick}
+      >
         {this._renderText(label, searchText)}
       </div>
     );
