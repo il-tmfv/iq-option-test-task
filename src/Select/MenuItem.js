@@ -7,6 +7,7 @@ export default class MenuItem extends Component {
     super(props);
     this._renderText = this._renderText.bind(this);
     this._onItemClick = this._onItemClick.bind(this);
+    this._getItemRef = this._getItemRef.bind(this);
   }
 
   static propTypes = {
@@ -16,6 +17,12 @@ export default class MenuItem extends Component {
     onClick: PropTypes.func.isRequired,
     isActive: PropTypes.bool,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isActive && !this.props.isActive) {
+      this.itemRef && this.itemRef.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    }
+  }
 
   _splitLabel(label, searchText) {
     const indexOfSubstring = label.toUpperCase().indexOf(searchText.toUpperCase());
@@ -49,11 +56,16 @@ export default class MenuItem extends Component {
     onClick && onClick(value);
   }
 
+  _getItemRef(ref) {
+    this.itemRef = ref;
+  }
+
   render() {
     const { label, searchText, isActive } = this.props;
 
     return (
       <div
+        ref={this._getItemRef}
         role="button"
         className={classNames('menu-item', { 'menu-item_active': isActive })}
         onClick={this._onItemClick}
