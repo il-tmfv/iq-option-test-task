@@ -26,17 +26,16 @@ export default class Menu extends Component {
   };
 
   _renderMenuItems(dataSet, searchText, activeItemValue, onClick) {
-    return dataSet
-      .map(x => (
-        <MenuItem
-          key={x.value}
-          isActive={activeItemValue === x.value}
-          searchText={searchText}
-          label={x.label}
-          value={x.value}
-          onClick={onClick}
-        />
-      ));
+    return dataSet.map(x => (
+      <MenuItem
+        key={x.value}
+        isActive={activeItemValue === x.value}
+        searchText={searchText}
+        label={x.label}
+        value={x.value}
+        onClick={onClick}
+      />
+    ));
   }
 
   _onMouseLeave(e) {
@@ -52,7 +51,7 @@ export default class Menu extends Component {
   render() {
     const { dataSet, open, searchText, maxRows, onClick, activeItemValue } = this.props;
 
-    return (
+    return dataSet.length > 0 ? (
       <div
         onMouseEnter={this._onMouseEnter}
         onMouseLeave={this._onMouseLeave}
@@ -61,6 +60,6 @@ export default class Menu extends Component {
       >
         {this._renderMenuItems(dataSet, searchText, activeItemValue, onClick)}
       </div>
-    );
+    ) : null;
   }
 }
