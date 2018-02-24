@@ -12,9 +12,9 @@ input-style()
   padding-left 6px
   font-size 14px
 
-arrow()
-  background-image url("../down.svg")
-  background-size 15px 15px
+arrow(svg)
+  background-image url(svg)
+  background-size 25px 25px
   background-color transparent
   background-repeat no-repeat
   background-position calc(100% - 6px) center
@@ -25,16 +25,17 @@ arrow()
   position relative
   input
     input-style()
-    arrow()
+    arrow("../arrow_down.svg")
   select
     input-style()
-    arrow()
+    arrow("../arrow_down.svg")
     -webkit-appearance none
     -moz-appearance none
 
 .select.select_opened-up
   input
     border-radius 0 0 5px 5px
+    arrow("../arrow_up.svg")
   .select__menu
     border-radius 5px 5px 0 0
     border-bottom none
@@ -42,6 +43,7 @@ arrow()
 .select.select_opened-down
   input
     border-radius 5px 5px 0 0
+    arrow("../arrow_up.svg")
   .select__menu
     border-radius 0 0 5px 5px
     border-top none
