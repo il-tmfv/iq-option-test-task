@@ -53,7 +53,8 @@ export default class Menu extends Component {
     const { dataSet, open, searchText, maxRows, onClick, activeItemValue, rowHeight, openUp } = this.props;
 
     const visibleRows = dataSet.length >= maxRows ? maxRows : dataSet.length;
-    const top = openUp ? -(rowHeight * visibleRows) : '100%';
+    const coef = visibleRows === maxRows ? 0 : 1;
+    const top = openUp ? -(rowHeight * visibleRows) - coef : '100%';
 
     return dataSet.length > 0 ? (
       <div
