@@ -137,6 +137,17 @@ export default class Desktop extends Component {
     const { placeholder, id, value, dataSet } = this.props;
     const { inputFocused, tempTextValue, activeItemValue } = this.state;
 
+    const preparedDataSet = this._prepareDataSet(dataSet, tempTextValue);
+    const maxRows = 5;
+    const rowHeight = 40;
+
+    const visibleRows = preparedDataSet.length >= maxRows ? maxRows : preparedDataSet.length;
+    const inputBottom = (this.inputRef && this.inputRef.getBoundingClientRect().bottom) || 0;
+    const menuHeight = visibleRows * rowHeight;
+    const windowHeight = window.innerHeight;
+
+    const openUp = (inputBottom + menuHeight) > windowHeight;
+
     return (
       <div className={classNames('select', { 'select_without-value': !inputFocused && !value })}>
         <label htmlFor={id} className="placeholder">
@@ -154,11 +165,14 @@ export default class Desktop extends Component {
         />
         <Menu
           onMenuFocusBlur={this._onMenuFocusBlur}
-          dataSet={this._prepareDataSet(dataSet, tempTextValue)}
+          dataSet={preparedDataSet}
           searchText={tempTextValue}
           open={inputFocused}
           onClick={this._onMenuItemClick}
           activeItemValue={activeItemValue}
+          maxRows={5}
+          rowHeight={40}
+          openUp={openUp}
         />
       </div>
     );

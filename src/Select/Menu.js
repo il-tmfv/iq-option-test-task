@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MenuItem from './MenuItem';
 
-const ROW_HEIGHT = 40;
-
 export default class Menu extends Component {
   constructor(props) {
     super(props);
@@ -16,13 +14,16 @@ export default class Menu extends Component {
     dataSet: PropTypes.array.isRequired,
     searchText: PropTypes.string.isRequired,
     maxRows: PropTypes.number,
+    rowHeight: PropTypes.number,
     onClick: PropTypes.func.isRequired,
     onMenuFocusBlur: PropTypes.func.isRequired,
     activeItemValue: PropTypes.string.isRequired,
+    openUp: PropTypes.bool,
   };
 
   static defaultProps = {
     maxRows: 5,
+    rowHeight: 40,
   };
 
   _renderMenuItems(dataSet, searchText, activeItemValue, onClick) {
@@ -49,14 +50,21 @@ export default class Menu extends Component {
   }
 
   render() {
-    const { dataSet, open, searchText, maxRows, onClick, activeItemValue } = this.props;
+    const { dataSet, open, searchText, maxRows, onClick, activeItemValue, rowHeight, openUp } = this.props;
+
+    const visibleRows = dataSet.length >= maxRows ? maxRows : dataSet.length;
+    const top = openUp ? -(rowHeight * visibleRows) : '100%';
 
     return dataSet.length > 0 ? (
       <div
         onMouseEnter={this._onMouseEnter}
         onMouseLeave={this._onMouseLeave}
         className="select__menu"
-        style={{ display: open ? 'block' : 'none', maxHeight: ROW_HEIGHT * maxRows }}
+        style={{
+          display: open ? 'block' : 'none',
+          maxHeight: rowHeight * maxRows,
+          top,
+        }}
       >
         {this._renderMenuItems(dataSet, searchText, activeItemValue, onClick)}
       </div>
