@@ -55,7 +55,10 @@ export default class Desktop extends Component {
 
   _onMenuItemClick(value) {
     const { onChange } = this.props;
-    onChange && onChange(value);
+
+    this.setState({ inputFocused: false, activeItemValue: '' }, () => {
+      onChange && onChange(value);
+    });
   }
 
   _onMenuFocusBlur(menuFocused) {
@@ -78,7 +81,7 @@ export default class Desktop extends Component {
           newActiveItem = preparedDataSet[0];
         }
 
-        this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : ''});
+        this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : '' });
 
         return false;
       case 40: // down
@@ -89,7 +92,7 @@ export default class Desktop extends Component {
           newActiveItem = preparedDataSet[0];
         }
 
-        this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : ''});
+        this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : '' });
 
         return false;
       case 13: // enter
