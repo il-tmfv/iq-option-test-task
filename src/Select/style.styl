@@ -32,6 +32,20 @@ arrow()
     -webkit-appearance none
     -moz-appearance none
 
+.select.select_opened-up
+  input
+    border-radius 0 0 5px 5px
+  .select__menu
+    border-radius 5px 5px 0 0
+    border-bottom none
+
+.select.select_opened-down
+  input
+    border-radius 5px 5px 0 0
+  .select__menu
+    border-radius 0 0 5px 5px
+    border-top none
+
 .select__menu
   box-sizing border-box
   position absolute

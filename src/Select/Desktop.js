@@ -146,10 +146,16 @@ export default class Desktop extends Component {
     const menuHeight = visibleRows * rowHeight;
     const windowHeight = window.innerHeight;
 
-    const openUp = (inputBottom + menuHeight) > windowHeight;
+    const openUp = inputBottom + menuHeight > windowHeight;
 
     return (
-      <div className={classNames('select', { 'select_without-value': !inputFocused && !value })}>
+      <div
+        className={classNames('select', {
+          'select_without-value': !inputFocused && !value,
+          'select_opened-up': inputFocused && openUp,
+          'select_opened-down': inputFocused && !openUp,
+        })}
+      >
         <label htmlFor={id} className="placeholder">
           {placeholder}
         </label>
