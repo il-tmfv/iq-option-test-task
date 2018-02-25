@@ -83,6 +83,8 @@ export default class Desktop extends Component {
 
         this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : '' });
 
+        e.preventDefault();
+
         return false;
       case 40: // down
         if (currentlyActiveIndex !== -1) {
@@ -93,6 +95,8 @@ export default class Desktop extends Component {
         }
 
         this.setState({ activeItemValue: newActiveItem ? newActiveItem.value : '' });
+
+        e.preventDefault();
 
         return false;
       case 13: // enter
