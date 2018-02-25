@@ -1,3 +1,12 @@
+@keyframes mobile-placeholder {
+  from {
+    transform scale(14/12) translate(8px, 17px)
+  }
+  to {
+    transform scale(1) translate(0, 0)
+  }
+}
+
 select:-moz-focusring
   color transparent;
   text-shadow: 0 0 0 #000;
@@ -90,6 +99,9 @@ arrow(svg)
   user-select none
   padding 0 2px
   z-index 2
+
+.placeholder_mobile
+  animation mobile-placeholder 400ms
 
 .select_without-value
   label

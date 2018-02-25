@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { sortFunc } from './Select';
 
 export default class Mobile extends Component {
@@ -24,10 +23,12 @@ export default class Mobile extends Component {
     const { id, dataSet, value, onChange, placeholder } = this.props;
 
     return (
-      <div className={classNames('select', { 'select_without-value': !value })}>
-        <label htmlFor={id} className="placeholder">
-          {placeholder}
-        </label>
+      <div className="select">
+        {value ? (
+          <label htmlFor={id} className="placeholder placeholder_mobile">
+            {placeholder}
+          </label>
+        ) : null}
         <select value={value} onChange={onChange} id={id}>
           <option value="" disabled style={{ display: value ? 'none' : 'block' }}>
             {placeholder}
