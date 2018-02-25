@@ -41,11 +41,15 @@ class App extends Component {
 
   _onResize(e) {
     const { dispatch } = this.props;
+
     dispatch(onResizeAction());
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
+
     window.addEventListener('resize', this._onResize);
+    dispatch(onResizeAction());
   }
 
   componentWillUnmount() {
