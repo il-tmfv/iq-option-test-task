@@ -1,8 +1,8 @@
-Запуск:
+How to start:
 
 ```
 yarn
 yarn start
 ```
 
-Демо доступно по адресу http://il-tmfv.github.io/iq-option-test-task
+Demo: http://il-tmfv.github.io/iq-option-test-task
